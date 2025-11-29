@@ -1,73 +1,68 @@
-# Welcome to your Lovable project
+# Seamless Website
 
-## Project info
+A home page for a modern, event management web app built with React, TypeScript, Vite, Tailwind CSS v4, and shadcn/ui. Automate speaker management, publish live schedules, and collaborate effortlessly—all in one platform.
 
-**URL**: https://lovable.dev/projects/b4ce6e99-87a0-43dd-b100-240e662870b0
+## Features
 
-## How can I edit this code?
+- **Speaker Management:** Automated intake forms, approval workflows, branded promo cards, Google Sheets/Drive sync.
+- **Schedule Management:** Live, publishable schedules from Google Sheets, auto-populated speaker details.
+- **Content Management:** Centralized hub for files, automatic cloud sync, granular permissions, version control.
+- **Beautiful UI:** Responsive, animated, and themeable with shadcn/ui and Tailwind CSS.
+- **Demo Booking:** Integrated Calendly links for quick demo scheduling.
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **React** + **TypeScript**
+- **Vite** (dev/build tool)
+- **Tailwind CSS v4** (utility-first styling)
+- **shadcn/ui** (component library)
+- **Radix UI** (accessible primitives)
+- **React Query** (data fetching/caching)
+- **React Router** (routing)
+- **Lucide Icons** (icon set)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b4ce6e99-87a0-43dd-b100-240e662870b0) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+2. **Start the dev server:**
+   ```sh
+   npm run dev
+   ```
+   Visit [http://localhost:5173](http://localhost:5173) in your browser.
 
-**Use your preferred IDE**
+3. **Build for production:**
+   ```sh
+   npm run build
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+  components/      # UI and page components
+  hooks/           # Custom React hooks
+  lib/             # Utility functions
+  pages/           # Route pages (Index, NotFound)
+  assets/          # Images and static assets
+  App.tsx          # App root
+  main.tsx         # Entry point
+public/            # Static files
 ```
 
-**Edit a file directly in GitHub**
+## Customization
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Tailwind config:** See `tailwind.config.ts` for theme and color setup.
+- **Component aliases:** See `components.json` for shadcn/ui config and path aliases.
 
-**Use GitHub Codespaces**
+## Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run lint` — Lint codebase
 
-## What technologies are used for this project?
+## License
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b4ce6e99-87a0-43dd-b100-240e662870b0) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+MIT
