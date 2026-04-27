@@ -17,6 +17,14 @@ const Footer = () => {
             >
               Book a Demo
             </a>
+            <a 
+              href="/contact" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 transition-colors font-medium"
+            >
+              Contact Us
+            </a>
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Seamless. Built for event professionals who deserve better tools.
             </p>
