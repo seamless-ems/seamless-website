@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Footer from "@/components/Footer";
 import Head from "@/components/Head";
 
 const Index = () => {
@@ -11,6 +12,7 @@ const Index = () => {
         image={`/assets/hero-illustration.jpg`}
       />
       <Hero />
+      <Footer />
     </main>
   );
 };

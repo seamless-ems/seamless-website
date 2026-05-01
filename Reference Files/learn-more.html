@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamless Events | How It Works</title>
+  <meta name="description" content="See Seamless in action. Speaker Management and Content Management built for conference organisers.">
+  <!-- OG / social -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://seamlessevents.io/learn-more">
+  <meta property="og:title"       content="How It Works | Seamless Events">
+  <meta property="og:description" content="See Seamless in action. Speaker Management and Content Management built for conference organisers.">
+  <meta property="og:image"       content="TODO: hosted logo URL">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="How It Works | Seamless Events">
+  <meta name="twitter:description" content="See Seamless in action. Speaker Management and Content Management built for conference organisers.">
+  <meta name="twitter:image"      content="TODO: hosted logo URL">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Brand tokens ─────────────────────────────────── */
+    :root {
+      --accent:        #4e5ca6;
+      --accent-hover:  #3d4a8f;
+      --accent-light:  #eef0f9;
+      --accent-border: #c8cde8;
+      --ink:           #111827;
+      --muted:         #6b7280;
+      --border:        #e5e7eb;
+      --bg:            #faf8f5;
+      --nav-bg:        rgba(250, 248, 245, 0.92);
+      --nav-h:         64px;
+      --px:            clamp(24px, 5vw, 80px);
+    }
+
+    /* ─── Reset ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── Nav ──────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--px);
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+    .wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      line-height: 1;
+    }
+    .wordmark-seamless {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .wordmark-events {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-login {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-login:hover { color: var(--ink); background: rgba(0,0,0,0.04); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border-radius: 7px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    /* ─── Buttons ──────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary {
+      padding: 13px 28px;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(78, 92, 166, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 14px rgba(78, 92, 166, 0.4);
+    }
+    .btn-outline {
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent-border);
+    }
+    .btn-outline:hover { background: var(--accent-light); border-color: var(--accent); }
+    .arrow-icon { transition: transform 0.15s; }
+    .btn-primary:hover .arrow-icon { transform: translateX(3px); }
+
+    /* ─── Feature sections ─────────────────────────────── */
+    .feature {
+      padding: 80px var(--px);
+    }
+    .feature.alt { background: #fff; }
+
+    .feature-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-text {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+    .feature-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .feature-heading {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .feature-first { padding-top: calc(var(--nav-h) + 64px); }
+
+    /* ─── Screenshot placeholder ───────────────────────── */
+    .screenshot-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(78, 92, 166, 0.08),
+        0 4px 6px -1px rgba(0,0,0,0.06),
+        0 20px 60px -10px rgba(78, 92, 166, 0.18);
+      background: #fff;
+    }
+    .browser-chrome {
+      height: 36px;
+      background: #f3f4f6;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .browser-dot:nth-child(1) { background: #f87171; }
+    .browser-dot:nth-child(2) { background: #fbbf24; }
+    .browser-dot:nth-child(3) { background: #34d399; }
+    .browser-url {
+      margin-left: 10px;
+      flex: 1;
+      height: 20px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #e5e7eb;
+      max-width: 340px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+    }
+    .browser-url span {
+      font-size: 11px;
+      color: #9ca3af;
+      font-weight: 400;
+    }
+    .screenshot {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #dfe4f4 0%, #ccd2ec 40%, #b8c0e4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* ─── Who built this ────────────────────────────────── */
+    .story-strip {
+      padding: 80px var(--px);
+      text-align: center;
+      background: var(--bg);
+    }
+    .story-strip h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .story-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+      text-decoration-color: var(--accent-border);
+      text-underline-offset: 4px;
+      transition: text-decoration-color 0.15s;
+    }
+    .story-link:hover { text-decoration-color: var(--accent); }
+
+    /* ─── Pricing strip ─────────────────────────────────── */
+    .pricing-strip {
+      padding: 80px var(--px);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes border-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(78, 92, 166, 0.0), 0 2px 12px rgba(78, 92, 166, 0.08); }
+      50%       { box-shadow: 0 0 0 4px rgba(78, 92, 166, 0.08), 0 4px 24px rgba(78, 92, 166, 0.16); }
+    }
+    .pricing-card {
+      background: #fff;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 32px 40px;
+      text-align: center;
+      animation: border-glow 3s ease-in-out infinite;
+      width: 100%;
+      max-width: 520px;
+    }
+    .pricing-module-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .pricing-amount {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .pricing-currency { font-size: 24px; font-weight: 700; color: var(--ink); }
+    .pricing-number   { font-size: 64px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; line-height: 1; }
+    .pricing-period   { font-size: 15px; font-weight: 500; color: var(--muted); align-self: flex-end; padding-bottom: 8px; }
+    .pricing-unlimiteds {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .pricing-unlimiteds span { font-size: 13px; color: var(--accent); font-weight: 500; }
+
+    .pricing-wordmark {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .pricing-divider {
+      border: none;
+      border-top: 1px solid var(--accent-border);
+      margin: 20px 0;
+    }
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+      width: 100%;
+      text-align: left;
+    }
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .features li svg { color: var(--accent); flex-shrink: 0; }
+    .pricing-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+    .pricing-cta .btn { width: 100%; }
+    .no-cc {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ─── Footer ────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px var(--px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--bg);
+    }
+    footer .copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    footer a:hover { color: var(--ink); }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Founder modal ─────────────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(17, 24, 39, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      animation: modal-in 0.2s ease;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 0;
+    }
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .modal-close:hover { background: var(--accent-light); color: var(--accent); }
+    .modal-body {
+      padding: 24px;
+    }
+    .modal-body h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .modal-body p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .modal-body p:last-child { margin-bottom: 0; }
+    .story-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0 0 14px;
+      padding: 0;
+    }
+    .story-bullets li {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .story-bullets li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .modal-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* ─── Responsive ───────────────────────────────────── */
+    @media (max-width: 640px) {
+      .feature { padding: 56px var(--px); }
+      .feature-first { padding-top: calc(var(--nav-h) + 40px); }
+      .pricing-card { padding: 24px 20px; }
+      .pricing-number { font-size: 52px; }
+      .modal-cta .btn { width: 100%; }
+      .nav-login { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="https://seamlessevents.io" class="wordmark" aria-label="Seamless Events home">
+      <span class="wordmark-seamless">Seamless</span>
+      <span class="wordmark-events">Events</span>
+    </a>
+    <div class="nav-actions">
+      <a href="http://app.seamlessevents.io/" class="nav-login" target="_blank" rel="noopener noreferrer">Log in</a>
+      <a href="http://app.seamlessevents.io/" class="nav-cta" target="_blank" rel="noopener noreferrer">
+        Try Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Section 1: Speaker Management -->
+    <section class="feature alt feature-first">
+      <div class="feature-inner">
+        <div class="feature-text">
+          <span class="feature-label">Speaker Management</span>
+          <h2 class="feature-heading">All your speakers.<br>All in one place.</h2>
+        </div>
+        <div class="screenshot-wrap">
+          <div class="browser-chrome">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url"><span>app.seamlessevents.io</span></div>
+          </div>
+          <div class="screenshot">
+            <img src="images/01-speaker-list.png" alt="Speaker management table showing all speakers with status, headshots, and actions">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Intake Form -->
+    <section class="feature">
+      <div class="feature-inner">
+        <div class="feature-text">
+          <span class="feature-label">Speaker Portal</span>
+          <h2 class="feature-heading">Their own space to manage.<br>Accessible to everyone who needs it.</h2>
+        </div>
+        <div class="screenshot-wrap">
+          <div class="browser-chrome">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url"><span>app.seamlessevents.io</span></div>
+          </div>
+          <div class="screenshot">
+            <img src="images/02-speaker-portal.png" alt="Speaker portal showing speaker details and content management">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Card Builder -->
+    <section class="feature alt">
+      <div class="feature-inner">
+        <div class="feature-text">
+          <span class="feature-label">Speaker &amp; Social Cards</span>
+          <h2 class="feature-heading">Design it once.<br>Auto-filled for every speaker.</h2>
+        </div>
+        <div class="screenshot-wrap">
+          <div class="browser-chrome">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url"><span>app.seamlessevents.io</span></div>
+          </div>
+          <div class="screenshot">
+            <img src="images/03-card-builder.png" alt="Speaker card builder showing a template with live preview">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Speaker Wall -->
+    <section class="feature">
+      <div class="feature-inner">
+        <div class="feature-text">
+          <span class="feature-label">Speaker Wall</span>
+          <h2 class="feature-heading">Publish once.<br>Every change, live instantly.</h2>
+        </div>
+        <div class="screenshot-wrap">
+          <div class="browser-chrome">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url"><span>app.seamlessevents.io</span></div>
+          </div>
+          <div class="screenshot">
+            <img src="images/04-speaker-wall.png" alt="Speaker Wall showing a grid of published speaker cards">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Content Management -->
+    <section class="feature alt">
+      <div class="feature-inner">
+        <div class="feature-text">
+          <span class="feature-label">Content Management</span>
+          <h2 class="feature-heading">All content. Every speaker.<br>Accessible to everyone who needs it.</h2>
+        </div>
+        <div class="screenshot-wrap">
+          <div class="browser-chrome">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url"><span>app.seamlessevents.io</span></div>
+          </div>
+          <div class="screenshot">
+            <img src="images/05-content.png" alt="Content tab showing all speakers and their uploaded files">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-strip">
+      <div class="pricing-card">
+        <div class="pricing-wordmark">
+          <span class="wordmark-seamless" style="font-size:18px;">Seamless</span>
+          <span class="wordmark-events" style="font-size:18px;">Events</span>
+        </div>
+        <p class="pricing-module-label">Speaker &amp; Content Management</p>
+        <div class="pricing-amount">
+          <span class="pricing-currency">$</span>
+          <span class="pricing-number">950</span>
+          <span class="pricing-period">/ event</span>
+        </div>
+        <div class="pricing-unlimiteds">
+          <span>Unlimited speakers</span><span>Unlimited content</span><span>Unlimited lead time</span>
+        </div>
+
+        <hr class="pricing-divider">
+
+        <ul class="features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Call for Speakers
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Intake forms direct to your speakers
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Speaker &amp; Social Card templates
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Update once, live everywhere, for everyone
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Content hub with version history
+          </li>
+        </ul>
+
+        <div class="pricing-cta">
+          <a href="http://app.seamlessevents.io/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Start Free Trial
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="no-cc">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            14-day free trial · No credit card required
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who built this -->
+    <div class="story-strip">
+      <h2>20 years of hacks.</h2>
+      <button class="story-link" onclick="openStory()">
+        Read our story
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <a href="https://seamlessevents.io" class="wordmark" aria-label="Seamless Events home">
+      <span class="wordmark-seamless" style="font-size:18px;">Seamless</span>
+      <span class="wordmark-events" style="font-size:18px;">Events</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://seamlessevents.io/contact">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <span class="copy">&copy; 2026 Seamless Events</span>
+    </div>
+  </footer>
+
+  <!-- Founder modal -->
+  <div class="modal-backdrop" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="story-title" onclick="handleBackdropClick(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <a href="https://seamlessevents.io" class="wordmark" aria-label="Seamless Events">
+          <span class="wordmark-seamless" style="font-size:18px;">Seamless</span>
+          <span class="wordmark-events" style="font-size:18px;">Events</span>
+        </a>
+        <button class="modal-close" onclick="closeStory()" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2 id="story-title">20 years of hacks.</h2>
+        <p>Our co-founder James spent two decades in the events industry building workarounds for problems that good software should have solved long ago.</p>
+        <p>Every year it was the same:</p>
+        <ul class="story-bullets">
+          <li>Websites with no pricing</li>
+          <li>Demos with no clarity</li>
+          <li>Quotes too large to justify, with no ability to tailor</li>
+        </ul>
+        <p>After years of building custom fixes for clients, he teamed up with another James and Catherine to build Seamless Events from scratch. Starting with Speaker and Content Management.</p>
+        <p>If any of that sounds familiar, James is always happy to chat (and swap some event war stories).</p>
+        <div class="modal-cta">
+          <a href="https://calendly.com/james-ruleyproductions/seamless-events" class="btn btn-primary" target="_blank" rel="noopener noreferrer" onclick="closeStory()">
+            Book a Demo with James
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openStory() {
+      document.getElementById('storyModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeStory() {
+      document.getElementById('storyModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleBackdropClick(e) {
+      if (e.target === document.getElementById('storyModal')) closeStory();
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeStory();
+    });
+  </script>
+
+</body>
+</html>

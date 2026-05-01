@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamless Events | Speaker & Content Management</title>
+  <meta name="description" content="The all-in-one platform for event organisers to collect, manage, and publish speaker content.">
+  <!-- OG / social -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://seamlessevents.io">
+  <meta property="og:title"       content="Seamless Events | Speaker &amp; Content Management">
+  <meta property="og:description" content="The all-in-one platform for event organisers to collect, manage, and publish speaker content.">
+  <meta property="og:image"       content="TODO: hosted logo URL">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="Seamless Events | Speaker &amp; Content Management">
+  <meta name="twitter:description" content="The all-in-one platform for event organisers to collect, manage, and publish speaker content.">
+  <meta name="twitter:image"      content="TODO: hosted logo URL">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Brand tokens ─────────────────────────────────── */
+    :root {
+      --accent:        #4e5ca6;
+      --accent-hover:  #3d4a8f;
+      --accent-light:  #eef0f9;
+      --accent-border: #c8cde8;
+      --ink:           #111827;
+      --muted:         #6b7280;
+      --border:        #e5e7eb;
+      --bg:            #faf8f5;
+      --nav-bg:        rgba(250, 248, 245, 0.92);
+      --nav-h:         64px;
+      --px:            clamp(24px, 5vw, 64px);
+    }
+
+    /* ─── Reset ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── Nav ──────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--px);
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+
+    .wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      line-height: 1;
+    }
+    .wordmark-seamless {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .wordmark-events {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-login {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      background: transparent;
+      border: 1.5px solid var(--accent-border);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .nav-login:hover { background: var(--accent-light); border-color: var(--accent); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border-radius: 7px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    /* ─── Hero ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-inner {
+      width: 100%;
+      padding: 48px 0 48px var(--px);
+      display: grid;
+      grid-template-columns: minmax(360px, 560px) 1fr;
+      gap: clamp(40px, 5vw, 72px);
+      align-items: stretch;
+    }
+
+    /* ─── Copy ─────────────────────────────────────────── */
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .headline {
+      font-size: clamp(40px, 4.8vw, 64px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+    .headline .accent { color: var(--accent); }
+
+    /* ─── CTAs ─────────────────────────────────────────── */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      padding: 13px 26px;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(78, 92, 166, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 14px rgba(78, 92, 166, 0.4);
+    }
+
+    .btn-outline {
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent-border);
+    }
+    .btn-outline:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+
+    .arrow-icon { transition: transform 0.15s; }
+    .btn-primary:hover .arrow-icon { transform: translateX(3px); }
+
+    .no-cc {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ─── Slideshow ────────────────────────────────────── */
+    .video-outer {
+      position: relative;
+      margin-right: 40px;
+    }
+    .video-card {
+      position: relative;
+    }
+    .video-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #e8eaf2;
+      box-shadow:
+        0 30px 70px -10px rgba(78, 92, 166, 0.28),
+        0 10px 24px -6px rgba(78, 92, 166, 0.16);
+      animation: border-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes border-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 0px rgba(78, 92, 166, 0),
+          0 30px 70px -10px rgba(78, 92, 166, 0.28),
+          0 10px 24px -6px rgba(78, 92, 166, 0.16);
+      }
+      50% {
+        box-shadow:
+          0 0 0 3px rgba(78, 92, 166, 0.18),
+          0 30px 70px -10px rgba(78, 92, 166, 0.32),
+          0 10px 24px -6px rgba(78, 92, 166, 0.20);
+      }
+    }
+
+    /* Browser chrome bar */
+    .browser-chrome {
+      background: #f1f3f9;
+      border-bottom: 1px solid #dde0ee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      flex-shrink: 0;
+    }
+    .browser-dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .browser-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: block;
+    }
+    .browser-dots span:nth-child(1) { background: #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #febc2e; }
+    .browser-dots span:nth-child(3) { background: #28c840; }
+    .browser-url {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #dde0ee;
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #6b7280;
+      font-family: inherit;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Slides container */
+    .slides-container {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .slide-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .slide-img.active { opacity: 1; transform: scale(1); }
+
+    /* Carousel controls — absolutely positioned so they don't affect column height */
+    .carousel-controls {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .carousel-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-border);
+      background: transparent;
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .carousel-btn:hover { background: var(--accent-light); border-color: var(--accent); transform: scale(1.08); }
+    .slide-badge {
+      position: absolute;
+      bottom: -16px;
+      right: 28px;
+      z-index: 10;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1.5px solid var(--accent-border);
+      padding: 7px 16px;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(78, 92, 166, 0.15);
+      pointer-events: none;
+    }
+
+    /* ─── Pricing modal ────────────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(17, 24, 39, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      animation: modal-in 0.2s ease;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 0;
+    }
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .modal-close:hover { background: var(--accent-light); color: var(--accent); }
+
+    .modal-body { padding: 24px; }
+
+    @keyframes border-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(78, 92, 166, 0.0), 0 2px 12px rgba(78, 92, 166, 0.08); }
+      50%       { box-shadow: 0 0 0 4px rgba(78, 92, 166, 0.08), 0 4px 24px rgba(78, 92, 166, 0.16); }
+    }
+    .pricing-card {
+      background: #fff;
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      animation: border-glow 3s ease-in-out infinite;
+    }
+    .pricing-module {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .pricing-amount {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .pricing-currency {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .pricing-number {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .pricing-period {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      align-self: flex-end;
+      padding-bottom: 8px;
+    }
+    .pricing-unlimiteds {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .pricing-unlimiteds span {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .features li svg { color: var(--accent); flex-shrink: 0; }
+
+    .modal-cta { display: flex; flex-direction: column; gap: 10px; }
+    .modal-no-cc {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ─── Responsive ───────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 40px var(--px) 60px;
+        gap: 40px;
+        align-items: start;
+      }
+      .video-outer { margin-right: 0; }
+      .video-wrap {
+        border-radius: 14px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .nav-login { display: none; }
+      .pricing-number { font-size: 52px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="https://seamlessevents.io" class="wordmark" aria-label="Seamless Events home">
+      <span class="wordmark-seamless">Seamless</span>
+      <span class="wordmark-events">Events</span>
+    </a>
+    <div class="nav-actions">
+      <a href="http://app.seamlessevents.io/" class="nav-login" target="_blank" rel="noopener noreferrer">Log in</a>
+      <button class="nav-login" onclick="openPricing()">See Pricing</button>
+      <a href="http://app.seamlessevents.io/" class="nav-cta" target="_blank" rel="noopener noreferrer">
+        Try Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+
+        <!-- Copy -->
+        <div class="hero-copy">
+          <h1 class="headline" id="hero-heading">
+            Events are Hard.<br>
+            <span class="accent">Speaker &amp; Content</span> Management<br>
+            shouldn't be.
+          </h1>
+
+          <div class="cta-group">
+            <a href="http://app.seamlessevents.io/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              Try Now
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="learn-more.html" class="btn btn-outline">
+              Learn More
+            </a>
+            <p class="no-cc">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              No credit card required
+            </p>
+          </div>
+        </div>
+
+        <!-- Slideshow -->
+        <div class="video-outer" aria-label="Product screenshots slideshow">
+          <div class="video-card">
+            <div class="video-wrap">
+              <div class="browser-chrome">
+                <div class="browser-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="browser-url" id="slideUrl">app.seamlessevents.io</div>
+              </div>
+              <div class="slides-container">
+                <img class="slide-img active" src="images/08-welcome-page.png" alt="Events dashboard"            data-url="app.seamlessevents.io/organizer"                                 data-badge="Multi-Event Dashboard">
+                <img class="slide-img"        src="images/06-applications.png" alt="Speaker applications"        data-url="app.seamlessevents.io/organizer/event/…/speakers/applications"  data-badge="Call for Speakers">
+                <img class="slide-img"        src="images/07-intake-form.png"  alt="Sending speaker intake form" data-url="app.seamlessevents.io/organizer/event/…/speakers"               data-badge="Speaker Intake">
+                <img class="slide-img"        src="images/01-speaker-list.png" alt="Speaker list"                data-url="app.seamlessevents.io/organizer/event/…/speakers"               data-badge="Speaker Management">
+                <img class="slide-img"        src="images/03-card-builder.png" alt="Card builder"                data-url="app.seamlessevents.io/organizer/event/…/website-card-builder"   data-badge="Card Builder">
+                <img class="slide-img"        src="images/04-speaker-wall.png" alt="Speaker wall"                data-url="app.seamlessevents.io/organizer/event/…/speakers/embed"          data-badge="Speaker Wall">
+                <img class="slide-img"        src="images/05-content.png"      alt="Content management"          data-url="app.seamlessevents.io/organizer/event/…/speakers"               data-badge="Content Management">
+              </div>
+            </div>
+            <div class="slide-badge" id="slideBadge">Multi-Event Dashboard</div>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="slidePrev" aria-label="Previous slide">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="carousel-btn" id="slidePause" aria-label="Pause slideshow">
+              <svg id="pauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              <svg id="playIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5,3 19,12 5,21"/></svg>
+            </button>
+            <button class="carousel-btn" id="slideNext" aria-label="Next slide">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Pricing modal -->
+  <div class="modal-backdrop" id="pricingModal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="handleBackdropClick(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <a href="https://seamlessevents.io" class="wordmark" aria-label="Seamless Events">
+          <span class="wordmark-seamless" style="font-size:18px;">Seamless</span>
+          <span class="wordmark-events" style="font-size:18px;">Events</span>
+        </a>
+        <button class="modal-close" onclick="closePricing()" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Price -->
+        <div class="pricing-card">
+          <p class="pricing-module">Speaker &amp; Content Management</p>
+          <div class="pricing-amount">
+            <span class="pricing-currency">$</span>
+            <span class="pricing-number">950</span>
+            <span class="pricing-period">/ event</span>
+          </div>
+          <div class="pricing-unlimiteds">
+            <span>Unlimited speakers</span><span>Unlimited content</span><span>Unlimited lead time</span>
+          </div>
+        </div>
+
+        <!-- What's included -->
+        <ul class="features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Call for Speakers
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Intake forms direct to your speakers
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Speaker &amp; Social Card templates
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Update once, live everywhere, for everyone
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Content hub with version history
+          </li>
+        </ul>
+
+        <!-- CTA -->
+        <div class="modal-cta">
+          <a href="http://app.seamlessevents.io/" class="btn btn-primary" target="_blank" rel="noopener noreferrer" onclick="closePricing()">
+            Start Free Trial
+            <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="modal-no-cc">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            14-day free trial · No credit card required
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ─── Pricing modal ───────────────────────────────── */
+    function openPricing() {
+      document.getElementById('pricingModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePricing() {
+      document.getElementById('pricingModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleBackdropClick(e) {
+      if (e.target === document.getElementById('pricingModal')) closePricing();
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePricing();
+    });
+
+    /* ─── Slideshow ───────────────────────────────────── */
+    (function () {
+      const slides     = Array.from(document.querySelectorAll('.slide-img'));
+      const urlEl     = document.getElementById('slideUrl');
+      const badgeEl   = document.getElementById('slideBadge');
+      const prevBtn   = document.getElementById('slidePrev');
+      const nextBtn   = document.getElementById('slideNext');
+      const pauseBtn  = document.getElementById('slidePause');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const playIcon  = document.getElementById('playIcon');
+      let current = 0;
+      let paused  = false;
+      let timer;
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        urlEl.textContent   = slides[current].dataset.url   || 'app.seamlessevents.io';
+        badgeEl.textContent = slides[current].dataset.badge || '';
+        resetTimer();
+      }
+
+      function startTimer() {
+        paused = false;
+        pauseIcon.style.display = '';
+        playIcon.style.display  = 'none';
+        resetTimer();
+      }
+
+      function stopTimer() {
+        paused = true;
+        clearInterval(timer);
+        pauseIcon.style.display = 'none';
+        playIcon.style.display  = '';
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 4200);
+      }
+
+      prevBtn.addEventListener('click', () => { goTo(current - 1); if (!paused) resetTimer(); });
+      nextBtn.addEventListener('click', () => { goTo(current + 1); if (!paused) resetTimer(); });
+      pauseBtn.addEventListener('click', () => paused ? startTimer() : stopTimer());
+
+      // Advance quickly on first slide so motion is caught immediately
+      setTimeout(() => { goTo(1); resetTimer(); }, 900);
+    })();
+  </script>
+
+</body>
+</html>

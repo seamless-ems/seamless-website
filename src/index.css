@@ -224,3 +224,46 @@
     transform: scale(1);
   }
 }
+
+@keyframes border-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0px rgba(78, 92, 166, 0),
+      0 30px 70px -10px rgba(78, 92, 166, 0.28),
+      0 10px 24px -6px rgba(78, 92, 166, 0.16);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(78, 92, 166, 0.18),
+      0 30px 70px -10px rgba(78, 92, 166, 0.32),
+      0 10px 24px -6px rgba(78, 92, 166, 0.20);
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(78, 92, 166, 0), 0 2px 12px rgba(78, 92, 166, 0.08); }
+  50%       { box-shadow: 0 0 0 4px rgba(78, 92, 166, 0.08), 0 4px 24px rgba(78, 92, 166, 0.16); }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-border-pulse { animation: border-pulse 3s ease-in-out infinite; }
+.animate-border-glow  { animation: border-glow 3s ease-in-out infinite; }
+
+/* ─── Legal doc prose ──────────────────────────────── */
+.doc-wrap h2 { font-size: 18px; font-weight: 700; color: #111827; margin: 40px 0 12px; }
+.doc-wrap h3 { font-size: 15px; font-weight: 600; color: #111827; margin: 24px 0 8px; }
+.doc-wrap p  { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 14px; }
+.doc-wrap ul, .doc-wrap ol { padding-left: 22px; margin-bottom: 14px; }
+.doc-wrap li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+.doc-wrap strong { color: #111827; }
+.doc-wrap a  { color: #4e5ca6; text-decoration: underline; text-underline-offset: 3px; }
+.doc-wrap a:hover { color: #3d4a8f; }
+.doc-wrap hr { border: none; border-top: 1px solid #e5e7eb; margin: 36px 0; }
+.doc-wrap table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 14px; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+.doc-wrap th { background: #f3f4f6; text-align: left; padding: 10px 14px; font-weight: 600; color: #111827; border-bottom: 1px solid #e5e7eb; }
+.doc-wrap td { padding: 10px 14px; color: #374151; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+.doc-wrap tr:last-child td { border-bottom: none; }

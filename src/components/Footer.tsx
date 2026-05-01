@@ -1,38 +1,21 @@
-const Footer = () => {
-  return (
-    <footer className="py-16 bg-secondary border-t border-border">
-      <div className="container px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start">
-            <div className="font-display font-bold text-3xl mb-2">Seamless</div>
-            <p className="text-sm text-muted-foreground">Event management made simple</p>
-          </div>
-          
-          <div className="flex flex-col items-center md:items-end gap-4">
-            <a 
-              href="https://calendly.com/james-ruleyproductions" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors font-medium"
-            >
-              Book a Demo
-            </a>
-            <a 
-              href="/contact" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors font-medium"
-            >
-              Contact Us
-            </a>
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Seamless. Built for event professionals who deserve better tools.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
+import Wordmark from "@/components/Wordmark";
+
+const Footer = () => (
+  <footer
+    className="border-t border-[#e5e7eb] bg-[#faf8f5] flex items-center justify-between flex-wrap gap-3"
+    style={{ padding: "32px clamp(24px,5vw,80px)" }}
+  >
+    <a href="https://seamlessevents.io" className="flex items-baseline gap-[5px]" aria-label="Seamless Events home">
+      <Wordmark size={18} />
+    </a>
+    <div className="flex items-center gap-5 flex-wrap">
+      <a href="/contact" className="text-[13px] text-[#6b7280] hover:text-[#111827] transition-colors">Contact</a>
+      <a href="http://app.seamlessevents.io/" target="_blank" rel="noreferrer" className="text-[13px] text-[#6b7280] hover:text-[#111827] transition-colors">Log in</a>
+      <a href="/privacy-policy" className="text-[13px] text-[#6b7280] hover:text-[#111827] transition-colors">Privacy Policy</a>
+      <a href="/terms" className="text-[13px] text-[#6b7280] hover:text-[#111827] transition-colors">Terms &amp; Conditions</a>
+      <span className="text-[13px] text-[#6b7280]">&copy; {new Date().getFullYear()} Seamless Events</span>
+    </div>
+  </footer>
+);
 
 export default Footer;
