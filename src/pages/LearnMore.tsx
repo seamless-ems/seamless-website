@@ -4,6 +4,7 @@ import Benefits from "@/components/Benefits";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import Wordmark from "@/components/Wordmark";
+import Head from "@/components/Head";
 
 const LearnMore = () => {
   const [storyOpen, setStoryOpen] = useState(false);
@@ -21,6 +22,12 @@ const LearnMore = () => {
 
   return (
     <div className="min-h-screen bg-[#faf8f5]">
+      <Head
+        title="How It Works — Seamless Events"
+        description="All your speakers, all in one place. Call for speakers, intake forms, card templates, and a content hub."
+        url="https://seamlessevents.io/learn-more"
+        image="https://seamlessevents.io/og-image.png"
+      />
 
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between bg-[rgba(250,248,245,0.92)] backdrop-blur-[14px] border-b border-[rgba(229,231,235,0.7)]" style={{ padding: "0 clamp(24px,5vw,80px)" }}>

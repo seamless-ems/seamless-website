@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100" role="img" aria-label="Seamless Events">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap');
+    </style>
+  </defs>
+  <text
+    x="210"
+    y="56"
+    text-anchor="middle"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="48"
+    letter-spacing="-0.48"
+  ><tspan font-weight="600" fill="#4e5ca6">Seamless</tspan><tspan font-weight="400" fill="#6b7280" dx="6"> Events</tspan></text>
+  <text
+    x="210"
+    y="82"
+    text-anchor="middle"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-weight="400"
+    font-size="17"
+    fill="#6b7280"
+  >seamlessevents.io</text>
+</svg>

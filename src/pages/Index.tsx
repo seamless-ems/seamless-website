@@ -6,10 +6,10 @@ const Index = () => {
   return (
     <main className="min-h-screen">
       <Head
-        title={`Seamless — Event Management SaaS for Schedules, Speakers & Collaboration`}
-        description={`Seamless automates speaker management, publishes live schedules, and enables collaborative content workflows for event organizers.`}
-        url={`https://seamlessevents.io/`}
-        image={`/assets/hero-illustration.jpg`}
+        title="Seamless — Events are Hard. Speaker Management shouldn't be."
+        description="All your speakers, all in one place. Call for speakers, intake forms, card templates, and a content hub."
+        url="https://seamlessevents.io/"
+        image="https://seamlessevents.io/og-image.png"
       />
       <Hero />
       <Footer />
