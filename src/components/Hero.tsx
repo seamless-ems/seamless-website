@@ -213,9 +213,9 @@ const Hero = () => {
       )}
 
       {/* Hero */}
-      <main className="min-h-screen pt-16 flex items-center">
+      <main className="min-h-screen pt-16 flex items-start sm:items-center">
         <section className="w-full">
-          <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[minmax(360px,560px)_1fr] gap-[clamp(32px,5vw,72px)] items-stretch py-10 lg:py-12">
+          <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[minmax(360px,560px)_1fr] gap-[clamp(32px,5vw,72px)] items-stretch py-6 sm:py-10 lg:py-12">
 
             {/* Copy */}
             <div className="flex flex-col">
@@ -226,7 +226,7 @@ const Hero = () => {
               </h1>
 
               {/* Mobile CTA */}
-              <div className="flex flex-col items-start mt-8 sm:hidden">
+              <div className="flex flex-col items-start mt-6 sm:hidden">
                 <a
                   href={CALENDLY}
                   target="_blank"
@@ -318,7 +318,7 @@ const Hero = () => {
               </div>
 
               {/* Carousel controls */}
-              <div className="flex items-center justify-center gap-2 mt-8">
+              <div className="flex items-center justify-center gap-2 mt-6">
                 <button
                   onClick={() => goTo(current - 1)}
                   aria-label="Previous slide"
