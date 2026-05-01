@@ -215,7 +215,7 @@ const Hero = () => {
       {/* Hero */}
       <main className="min-h-screen pt-16 flex items-center">
         <section className="w-full">
-          <div className="w-full px-6 lg:pl-12 lg:pr-0 grid grid-cols-1 lg:grid-cols-[minmax(360px,560px)_1fr] gap-[clamp(32px,5vw,72px)] items-stretch py-10 lg:py-12">
+          <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[minmax(360px,560px)_1fr] gap-[clamp(32px,5vw,72px)] items-stretch py-10 lg:py-12">
 
             {/* Copy */}
             <div className="flex flex-col">

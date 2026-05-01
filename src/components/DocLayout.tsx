@@ -30,11 +30,10 @@ const DocLayout = ({ children }: DocLayoutProps) => (
     </nav>
 
     <main>
-      <div
-        className="doc-wrap"
-        style={{ padding: "calc(64px + 56px) clamp(24px,5vw,64px) 80px" }}
-      >
-        {children}
+      <div style={{ padding: "calc(64px + 56px) clamp(24px,5vw,64px) 80px" }}>
+        <div className="doc-wrap max-w-[800px] mx-auto">
+          {children}
+        </div>
       </div>
     </main>
 
