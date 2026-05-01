@@ -156,9 +156,9 @@ const Hero = () => {
       {/* Hero */}
       <main className="pt-16 h-screen flex items-center">
         <section className="w-full h-full">
-          <div className="max-w-[2400px] w-full mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[minmax(440px,640px)_minmax(720px,1fr)] gap-12 items-center h-full">
+          <div className="max-w-[2400px] w-full mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[minmax(440px,640px)_minmax(720px,1fr)] gap-12 items-start h-full pt-[20vh]">
             {/* Copy */}
-            <div className="flex flex-col justify-center gap-6 h-full">
+            <div className="flex flex-col justify-start gap-6">
               <h1 className="text-4xl md:text-5xl lg:text-[64px] font-extrabold leading-tight tracking-tight">
                 Events are Hard.
                 <br />
