@@ -10,8 +10,8 @@ const featureList = [
 
 const CTA = () => (
   <section
-    className="bg-white border-t border-[#e5e7eb] flex flex-col items-center"
-    style={{ padding: "80px clamp(24px,5vw,80px)" }}
+    className="bg-white border-t border-[#e5e7eb] flex flex-col items-center py-12 sm:py-20"
+    style={{ paddingLeft: "clamp(24px,5vw,80px)", paddingRight: "clamp(24px,5vw,80px)" }}
   >
     <div className="w-full max-w-[520px] bg-white border-2 border-[#4e5ca6] rounded-[16px] p-8 md:p-10 text-center animate-border-glow">
 

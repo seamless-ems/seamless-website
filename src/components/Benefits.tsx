@@ -4,8 +4,8 @@ interface BenefitsProps {
 
 const Benefits = ({ onOpenStory }: BenefitsProps) => (
   <section
-    className="bg-[#faf8f5] text-center"
-    style={{ padding: "80px clamp(24px,5vw,80px)" }}
+    className="bg-[#faf8f5] text-center py-12 sm:py-20"
+    style={{ paddingLeft: "clamp(24px,5vw,80px)", paddingRight: "clamp(24px,5vw,80px)" }}
   >
     <h2 className="text-[clamp(28px,3.5vw,44px)] font-extrabold tracking-[-0.025em] text-[#111827] leading-[1.1] mb-4">
       20 years of hacks.

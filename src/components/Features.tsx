@@ -51,10 +51,8 @@ const Features = () => (
     {sections.map((s) => (
       <section
         key={s.label}
-        className={s.white ? "bg-white" : "bg-[#faf8f5]"}
+        className={`${s.white ? "bg-white" : "bg-[#faf8f5]"} ${s.first ? "pt-[104px] sm:pt-[128px]" : "pt-10 sm:pt-20"} pb-10 sm:pb-20`}
         style={{
-          paddingTop: s.first ? "calc(64px + 64px)" : "80px",
-          paddingBottom: "80px",
           paddingLeft: "clamp(24px, 5vw, 80px)",
           paddingRight: "clamp(24px, 5vw, 80px)",
         }}
@@ -62,7 +60,7 @@ const Features = () => (
         <div className="max-w-[1200px] mx-auto">
 
           {/* Label + heading */}
-          <div className="text-center max-w-[800px] mx-auto mb-10">
+          <div className="text-center max-w-[800px] mx-auto mb-6 sm:mb-10">
             <span className="inline-block text-[11px] font-bold tracking-[0.1em] uppercase text-[#4e5ca6] bg-[#eef0f9] px-2.5 py-1 rounded-[4px] mb-4">
               {s.label}
             </span>
